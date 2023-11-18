@@ -1,5 +1,5 @@
 
-import { Outlet, Link, useLoaderData, Form, redirect, NavLink } from "react-router-dom";
+import { Outlet, useLoaderData, Form, redirect, NavLink, useNavigation } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 export async function action() {
@@ -14,7 +14,7 @@ export async function loader() {
 
 export default function Root() {
   const { contacts } = useLoaderData();
-
+  const navigation = useNavigation();
   return (
     <>
       <div id="sidebar">
@@ -47,7 +47,16 @@ export default function Root() {
             <ul>
               {contacts.map((contact) => (
                 <li key={contact.id}>
-                  <NavLink to={`contacts/${contact.id}`}>
+                  <NavLink
+                    to={`contacts/${contact.id}`}
+                    className={({ isActive, isPending }) =>
+                      isActive
+                        ? "active"
+                        : isPending
+                          ? "pending"
+                          : ""
+                    }
+                  >
                     {contact.first || contact.last ? (
                       <>
                         {contact.first} {contact.last}
@@ -67,8 +76,12 @@ export default function Root() {
           )}
 
         </nav>
-      </div>
-      <div id="detail">
+      </div >
+      <div
+        id="detail"
+        className={
+          navigation.state === "loading" ? "loading" : ""
+        }>
         <Outlet />
       </div>
     </>
