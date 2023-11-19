@@ -11,6 +11,8 @@ import Root, {
 import ErrorPage from "./error-page";
 import Contact, {
   loader as contactLoader,
+  action as contactAction,
+
 } from "./routes/contact";
 import EditContact, { action as editAction } from "./routes/edit";
 import { action as deleteAction } from "./routes/delete";
@@ -20,28 +22,34 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage />,
     loader: rootLoader,
     action: rootAction,
+    errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Index />},
       {
-        path: "contacts/:contactId",
-        element: <Contact />,
-        loader: contactLoader,
-      },
-      {
-        path: "contacts/:contactId/edit",
-        element: <EditContact />,
-        loader: contactLoader,
-        action: editAction,
-      },
-      {
-        path: "contacts/:contactId/destroy",
-        loader: contactLoader,
-        action: deleteAction,
-        errorElement: <div>OOOOOPS, couldn't delete</div>,
-      },
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Index /> },
+          {
+            path: "contacts/:contactId",
+            element: <Contact />,
+            loader: contactLoader,
+            action: contactAction,
+          },
+          {
+            path: "contacts/:contactId/edit",
+            element: <EditContact />,
+            loader: contactLoader,
+            action: editAction,
+          },
+          {
+            path: "contacts/:contactId/destroy",
+            loader: contactLoader,
+            action: deleteAction,
+            errorElement: <div>OOOOOPS, couldn't delete</div>,
+          },
+        ]
+      }
     ],
   },
 ]);
