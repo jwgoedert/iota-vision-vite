@@ -1,22 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
+import "./index.css";
+import ErrorPage from "./error-page";
+import EditContact, { action as editAction } from "./routes/edit";
+import { action as deleteAction } from "./routes/delete";
+import Index from "./routes/index";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import "./index.css";
 import Root, {
   loader as rootLoader, action as rootAction,
 } from "./routes/Root";
-import ErrorPage from "./error-page";
 import Contact, {
   loader as contactLoader,
   action as contactAction,
 
 } from "./routes/contact";
-import EditContact, { action as editAction } from "./routes/edit";
-import { action as deleteAction } from "./routes/delete";
-import Index from "./routes/index";
 
 const router = createBrowserRouter([
   {

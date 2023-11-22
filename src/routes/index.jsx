@@ -1,13 +1,10 @@
 export default function Index() {
   return (
-    <p id="zero-state">
-      This is a demo for React Router.
-      <br />
-      Check out{" "}
-      <a href="https://reactrouter.com">
-        the docs at reactrouter.com
-      </a>
-      .
-    </p>
+    <div>
+      <h1>IOTA: Ideas, Objects, Times and Actions.</h1>
+      <h3>painting the future through the past one iota and a time...</h3>
+{/* create two buttons to choose between create or read  */}
+
+    </div>
   );
 }
